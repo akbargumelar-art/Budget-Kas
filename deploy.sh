@@ -8,7 +8,7 @@ set -e
 APP_DIR="/var/www/Budget-Kas"
 REPO_URL="https://github.com/akbargumelar-art/Budget-Kas.git"
 BRANCH="main"
-SERVICE_NAME="budget-kas"
+SERVICE_NAME="budget-backend"
 
 echo "=========================================="
 echo "  Budget-Kas - Deploy Script"
