@@ -40,14 +40,14 @@ if [ -f "server/migration_add_input_role.sql" ]; then
     echo "  Checking for pending migrations..."
     # Load DB credentials from .env
     if [ -f ".env" ]; then
-        source <(grep -E '^(DB_HOST|DB_USER|DB_PASSWORD|DB_NAME)=' .env)
+        source <(grep -E '^(DB_HOST|DB_USER|DB_PASSWORD|DB_DATABASE|DB_PORT)=' .env)
         
         # Check if activity_logs table already exists
-        TABLE_EXISTS=$(mysql -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" -e "SHOW TABLES LIKE 'activity_logs';" 2>/dev/null | grep -c 'activity_logs' || true)
+        TABLE_EXISTS=$(mysql -h"$DB_HOST" -P"${DB_PORT:-3306}" -u"$DB_USER" -p"$DB_PASSWORD" "$DB_DATABASE" -e "SHOW TABLES LIKE 'activity_logs';" 2>/dev/null | grep -c 'activity_logs' || true)
         
         if [ "$TABLE_EXISTS" -eq 0 ]; then
             echo "  Running migration: migration_add_input_role.sql"
-            mysql -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" < server/migration_add_input_role.sql
+            mysql -h"$DB_HOST" -P"${DB_PORT:-3306}" -u"$DB_USER" -p"$DB_PASSWORD" "$DB_DATABASE" < server/migration_add_input_role.sql
             echo "  Migration completed successfully!"
         else
             echo "  Migration already applied. Skipping."
