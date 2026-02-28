@@ -1,0 +1,5 @@
+{
+  "name": "Catatan Keuangan",
+  "description": "A responsive web application for personal financial tracking, designed with a mobile-first approach. It features user roles (admin/viewer), transaction management, budget tracking, and detailed dashboards.",
+  "requestFramePermissions": []
+}
