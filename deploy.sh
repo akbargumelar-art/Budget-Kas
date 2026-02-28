@@ -19,6 +19,7 @@ if [ -d "$APP_DIR" ]; then
     echo ""
     echo "[1/6] Pulling latest code from GitHub..."
     cd "$APP_DIR"
+    git config --global --add safe.directory "$APP_DIR"
     git fetch origin
     git reset --hard origin/$BRANCH
 else
